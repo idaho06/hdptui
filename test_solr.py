@@ -1,3 +1,4 @@
+import os
 import logging
 import unittest
 import util.config
@@ -7,10 +8,11 @@ loglevel = logging.DEBUG
 logging.basicConfig(level=loglevel,
                     format="%(asctime)s %(levelname)s: %(funcName)s: %(message)s")
 
+conffile = None
 
 class TestAmbariInfraSolr(unittest.TestCase):
     def setUp(self):
-        self.config = util.config.ConfigClass('test/testconfig.ini')
+        self.config = util.config.ConfigClass(conffile)
         solrconfig = self.config.parser['SOLR']
         self.solr = services.solr.SolrClass(solrconfig)
 
@@ -35,4 +37,9 @@ class TestAmbariInfraSolr(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    if os.environ.get('TEST_CONF') is not None:
+        conffile = os.environ['TEST_CONF']
+    else:
+        conffile = "test/testconfig.ini"
+
     unittest.main()

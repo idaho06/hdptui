@@ -3,3 +3,5 @@ venv
 stderr
 __pycache__
 *.pyc
+test/testkerberos.ini
+test/*.keytab
