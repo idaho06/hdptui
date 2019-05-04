@@ -35,6 +35,15 @@ class TestAmbariInfraSolr(unittest.TestCase):
         logging.debug("END test_get_collections")
         logging.debug("..............................................")
 
+    def test_get_details_of_a_collection(self):
+        collections = self.solr.getCollections()
+        lastcollection = collections[-1]
+        detailsofcollection = self.solr.getCollectionDetails(lastcollection)
+        self.assertIsInstance(detailsofcollection, dict, "Response is a Dict")
+        self.assertTrue('shards' in detailsofcollection and 'configName' in detailsofcollection)
+        logging.debug("END test_get_details_of_a_collection")
+        logging.debug("..............................................")
+
 
 if __name__ == '__main__':
     if os.environ.get('TEST_CONF') is not None:
