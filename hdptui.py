@@ -6,21 +6,15 @@
 import logging
 import argparse
 import util.config
-
+import npyscreen
+from util.forms.splash import SplashFormClass
 
 # Globals and other helper functions
 
 
-def main(args):
-    logging.debug("Entering Main function")
-    print("Hello, world!.")
-    print("These are your args:")
-    print(args)
-    print(config._CONFIG_FILE)
-
-    # profit!
-    return 0
-
+class HDPTuiApp(npyscreen.NPSAppManaged):
+    def onStart(self):
+        self.registerForm("MAIN", SplashFormClass())
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="HDP Text User Interface.",
@@ -47,8 +41,9 @@ if __name__ == "__main__":
     logging.basicConfig(level=loglevel, filename=logoutput,
                         format="%(asctime)s %(levelname)s: %(funcName)s: %(message)s")
     logging.info("Logging level set to %s." % logging.getLevelName(loglevel))
-    # logging.info("Configuring database to %s" % args.database)
 
     config = util.config.ConfigClass(args.config)
 
-    exit(main(args))
+    TA = HDPTuiApp()
+
+    exit(TA.run())
