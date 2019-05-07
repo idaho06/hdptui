@@ -7,6 +7,8 @@ import logging
 import argparse
 import util.config
 import npyscreen
+import os
+import locale
 from util.forms.splash import SplashFormClass
 
 # Globals and other helper functions
@@ -43,6 +45,9 @@ if __name__ == "__main__":
     logging.info("Logging level set to %s." % logging.getLevelName(loglevel))
 
     config = util.config.ConfigClass(args.config)
+
+    if os.environ.get('LC_ALL') is None:
+        os.environ['LC_ALL'] = "en_US.UTF-8"
 
     TA = HDPTuiApp()
 
