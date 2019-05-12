@@ -44,6 +44,18 @@ class TestAmbariInfraSolr(unittest.TestCase):
         logging.debug("END test_get_details_of_a_collection")
         logging.debug("..............................................")
 
+    def test_create_and_delete_a_collection(self):
+        collectionname = "test01"
+        shards = 2
+        replicas = 2
+        result = self.solr.setNewDefaultCollection(collectionname,shards,replicas)
+        self.assertTrue(result)
+        result = self.solr.setDeleteCollection(collectionname)
+        self.assertTrue(result)
+        logging.debug("END test_create_and_delete_a_collection")
+        logging.debug("..............................................")
+
+
 
 if __name__ == '__main__':
     if os.environ.get('TEST_CONF') is not None:
