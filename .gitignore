@@ -5,3 +5,4 @@ __pycache__
 *.pyc
 test/testkerberos.ini
 test/*.keytab
+test/krb5.conf
